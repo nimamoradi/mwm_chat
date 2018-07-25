@@ -1,0 +1,46 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.stfalcon.chatkit.sample">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/GreenTheme">
+
+        <activity
+            android:name=".features.main.MainActivity"
+            android:theme="@style/BlueThemeNoActionBar">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name=".features.demo.def.DefaultMessagesActivity"
+            android:theme="@style/BlueTheme"/>
+        <activity
+            android:name=".features.demo.def.DefaultDialogsActivity"
+            android:theme="@style/BlueTheme"/>
+        <activity
+            android:name=".features.demo.styled.StyledMessagesActivity"/>
+        <activity
+            android:name=".features.demo.styled.StyledDialogsActivity"/>
+        <activity
+            android:name=".features.demo.custom.layout.CustomLayoutDialogsActivity"/>
+        <activity
+            android:name=".features.demo.custom.layout.CustomLayoutMessagesActivity"/>
+        <activity
+            android:name=".features.demo.custom.holder.CustomHolderDialogsActivity"/>
+        <activity
+            android:name=".features.demo.custom.holder.CustomHolderMessagesActivity"/>
+        <activity
+            android:name=".features.demo.custom.media.CustomMediaMessagesActivity"
+            android:theme="@style/BlueTheme"/>
+
+    </application>
+
+</manifest>
