@@ -3,7 +3,6 @@ package com.stfalcon.chatkit.sample.Controler;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.ActivityOptions;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -32,7 +31,7 @@ import android.widget.TextView;
 
 
 import com.stfalcon.chatkit.sample.R;
-import com.stfalcon.chatkit.sample.features.main.MainActivity;
+import com.stfalcon.chatkit.sample.features.demo.def.DefaultDialogsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -362,7 +361,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void loginToMainPage() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, DefaultDialogsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
