@@ -32,4 +32,25 @@
     <string name="start_typing_status">Start typing</string>
     <string name="stop_typing_status">Stop typing</string>
 
+
+    <!--login activity -->
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">حساب کاربری</string>
+    <string name="prompt_password">رمز</string>
+    <string name="prompt_password_repeat"> تکرار رمز</string>
+    <string name="action_sign_in">ورود</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">نام کاربری باید ایمیل باشد</string>
+    <string name="error_invalid_password">رمز عبور خیلی کوتاه هست</string>
+    <string name="error_incorrect_password">رمز عبور غلت است</string>
+    <string name="error_field_required">این فیلد اجباری است </string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_maina_page">MainaPage</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
 </resources>

@@ -27,5 +27,13 @@
     <color name="dialog_date_text">@color/warm_grey_two</color>
     <color name="dialog_unread_text">@color/white</color>
     <color name="dialog_unread_bubble">@color/dark_mint</color>
+    <!--login-->
+    <color name="secondary_text">#faa940</color>
+    <color name="white_login">#fcf9f9</color>
+    <color name="grayLite">#f0f0f0</color>
+    <color name="blur">#55000000</color>
 
+    <color name="list_red">#ff0000</color>
+
+    <color name="date_item_color">#a2a1a1</color>
 </resources>

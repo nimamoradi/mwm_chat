@@ -33,4 +33,8 @@
     <dimen name="message_date_header_padding">16dp</dimen>
     <dimen name="message_incoming_bubble_margin_right">40dp</dimen>
     <dimen name="message_outcoming_bubble_margin_left">88dp</dimen>
+    <!--login-->
+    <dimen name="text_size">20dp</dimen>
+    <dimen name="round_edge">12dp</dimen>
+    <dimen name="round_edge_edit_text">20dp</dimen>
 </resources>
