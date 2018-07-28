@@ -1,0 +1,86 @@
+{
+  "project_info": {
+    "project_number": "884444535342",
+    "firebase_url": "https://mwm-chat-f2b85.firebaseio.com",
+    "project_id": "mwm-chat-f2b85",
+    "storage_bucket": "mwm-chat-f2b85.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:884444535342:android:218cbe12d5111962",
+        "android_client_info": {
+          "package_name": "com.nima.mwm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "884444535342-ohl3kvbj40q0nvmrc3qjuqdsafmvusvt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtmQ7Gl3YAKpCv32TsiNyXbwvxv5T5gQo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:884444535342:android:8b5e9d3a4eac42cb",
+        "android_client_info": {
+          "package_name": "com.stfalcon.chatkit.sample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "884444535342-4thlia7mu3rs3ibb4qr0lenhpj44bjr2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.stfalcon.chatkit.sample",
+            "certificate_hash": "a61220e78a64eeaf584b7cc927003734c1c9335e"
+          }
+        },
+        {
+          "client_id": "884444535342-ohl3kvbj40q0nvmrc3qjuqdsafmvusvt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtmQ7Gl3YAKpCv32TsiNyXbwvxv5T5gQo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "884444535342-ohl3kvbj40q0nvmrc3qjuqdsafmvusvt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
