@@ -36,6 +36,7 @@ ext {
 dependencies {
     implementation project(':chatkit')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.google.firebase:firebase-core:11.0.4'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -51,3 +52,6 @@ dependencies {
     //Utils
     implementation "me.relex:circleindicator:$circleindicatorVersion"
 }
+
+
+apply plugin: 'com.google.gms.google-services'
