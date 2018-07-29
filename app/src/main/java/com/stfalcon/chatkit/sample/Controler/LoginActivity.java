@@ -32,6 +32,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
+import com.onesignal.OneSignal;
 import com.stfalcon.chatkit.sample.R;
 import com.stfalcon.chatkit.sample.features.demo.def.DefaultDialogsActivity;
 
@@ -294,7 +295,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 
-
     private interface ProfileQuery {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
@@ -348,7 +348,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                loginToMainPage();
+                loginToMainPage(mEmail);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
@@ -362,7 +362,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    private void loginToMainPage() {
+    private void loginToMainPage(String mEmail) {
+        OneSignal.setEmail(mEmail);
         Intent intent = new Intent(this, DefaultDialogsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
@@ -370,7 +371,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean("isLogin",true);
+        editor.putBoolean("isLogin", true);
         editor.apply();
     }
 }
