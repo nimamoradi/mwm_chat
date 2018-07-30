@@ -14,7 +14,7 @@ public final class MessagesFixtures extends FixturesData {
     private MessagesFixtures() {
         throw new AssertionError();
     }
-
+///todo get user
     public static Message getImageMessage() {
         Message message = new Message(getRandomId(), getUser(), null);
         message.setImage(new Message.Image(getRandomImage()));
@@ -35,6 +35,7 @@ public final class MessagesFixtures extends FixturesData {
         return new Message(getRandomId(), getUser(), text);
     }
 
+    //todo get chat massages
     public static ArrayList<Message> getMessages(Date startDate) {
         ArrayList<Message> messages = new ArrayList<>();
         for (int i = 0; i < 10/*days count*/; i++) {
@@ -50,7 +51,7 @@ public final class MessagesFixtures extends FixturesData {
 
                 Calendar calendar = Calendar.getInstance();
                 if (startDate != null) calendar.setTime(startDate);
-                calendar.add(Calendar.DAY_OF_MONTH, -(i * i + 1));
+                calendar.add(Calendar.DAY_OF_MONTH, 5 * i);
 
                 message.setCreatedAt(calendar.getTime());
                 messages.add(message);

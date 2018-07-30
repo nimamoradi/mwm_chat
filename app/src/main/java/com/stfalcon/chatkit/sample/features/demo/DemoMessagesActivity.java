@@ -1,5 +1,7 @@
 package com.stfalcon.chatkit.sample.features.demo;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -15,6 +17,9 @@ import com.stfalcon.chatkit.messages.MessagesListAdapter;
 import com.stfalcon.chatkit.sample.R;
 import com.stfalcon.chatkit.sample.common.data.fixtures.MessagesFixtures;
 import com.stfalcon.chatkit.sample.common.data.model.Message;
+import com.stfalcon.chatkit.sample.common.data.model.User;
+import com.stfalcon.chatkit.sample.features.demo.def.DefaultMessagesActivity;
+import com.stfalcon.chatkit.sample.staticData;
 import com.stfalcon.chatkit.sample.utils.AppUtils;
 
 import java.text.SimpleDateFormat;

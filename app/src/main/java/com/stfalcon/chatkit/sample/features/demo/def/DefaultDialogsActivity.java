@@ -35,12 +35,18 @@ public class DefaultDialogsActivity extends DemoDialogsActivity {
 
     @Override
     public void onDialogClick(Dialog dialog) {
+        //todo give user
         DefaultMessagesActivity.open(this);
+    }
+//todo get request from server
+    private ArrayList<Dialog> getMassagesFromServer() {
+
+        return DialogsFixtures.getDialogs();
     }
 
     private void initAdapter() {
         super.dialogsAdapter = new DialogsListAdapter<>(super.imageLoader);
-        super.dialogsAdapter.setItems(DialogsFixtures.getDialogs());
+        super.dialogsAdapter.setItems(getMassagesFromServer());
 
         super.dialogsAdapter.setOnDialogClickListener(this);
         super.dialogsAdapter.setOnDialogLongClickListener(this);
