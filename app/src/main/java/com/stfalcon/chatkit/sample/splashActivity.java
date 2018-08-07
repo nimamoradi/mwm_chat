@@ -18,7 +18,7 @@ public class splashActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         boolean isLogin = preferences.getBoolean("isLogin", false);
         if (isLogin) {
-            Intent login = new Intent(this, DefaultDialogsActivity.class);
+            Intent login = new Intent(this, test.class);
             login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(login);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
