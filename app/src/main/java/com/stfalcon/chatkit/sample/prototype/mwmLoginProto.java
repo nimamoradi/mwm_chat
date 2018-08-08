@@ -21,7 +21,7 @@ public interface mwmLoginProto {
     @Headers({"Accept: application/json",
             "Content-Type: application/json"})
     @POST("login/signIn?")
-    Call<LoginData> login(@Query("uid") int uid, @Query("pwd") int pwd);
+    Call<LoginData> login(@Query("uid") String uid, @Query("pwd") String pwd);
 
 
     static final Retrofit retrofit = new Retrofit.Builder()

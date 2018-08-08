@@ -2,6 +2,7 @@ package com.stfalcon.chatkit.sample.responseModel;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.stfalcon.chatkit.sample.common.data.model.User;
 
 public class LoginData {
     @SerializedName("result")
@@ -67,5 +68,9 @@ public class LoginData {
 
     public void setImgAvatar(String imgAvatar) {
         this.imgAvatar = imgAvatar;
+    }
+
+    public User getUser() {
+        return new User(uid, username, imgAvatar, true);
     }
 }

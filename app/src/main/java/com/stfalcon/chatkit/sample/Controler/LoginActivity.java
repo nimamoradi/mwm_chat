@@ -18,9 +18,11 @@ import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 //import android.support.design.widget.Snackbar;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,13 +34,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
+import com.google.gson.Gson;
 import com.onesignal.OneSignal;
 import com.stfalcon.chatkit.sample.R;
 import com.stfalcon.chatkit.sample.features.demo.def.DefaultDialogsActivity;
+import com.stfalcon.chatkit.sample.prototype.mwmLoginProto;
+import com.stfalcon.chatkit.sample.responseModel.LoginData;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -52,16 +62,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
+
     private UserLoginTask mAuthTask = null;
 
     // UI references.
@@ -124,18 +125,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
             return true;
         }
-//        if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-//            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-//                    .setAction(android.R.string.ok, new View.OnClickListener() {
-//                        @Override
-//                        @TargetApi(Build.VERSION_CODES.M)
-//                        public void onClick(View v) {
-//                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-//                        }
-//                    });
-//        } else {
-//            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-//        }
+        if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
+            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(android.R.string.ok, new View.OnClickListener() {
+                        @Override
+                        @TargetApi(Build.VERSION_CODES.M)
+                        public void onClick(View v) {
+                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
+                        }
+                    });
+        } else {
+            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
+        }
         return false;
     }
 
@@ -200,19 +201,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
+
             mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            mwmLoginProto gitHubService = mwmLoginProto.retrofit.create(mwmLoginProto.class);
+            final Call<LoginData> call = gitHubService.login(email, password);
+
+
+            mAuthTask.execute(call);
         }
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
+
+        return email.length() > 2;
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
+
+        return password.length() > 1;
     }
 
     /**
@@ -223,32 +229,27 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
+        int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
+        mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        mLoginFormView.animate().setDuration(shortAnimTime).alpha(
+                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            }
+        });
+
+        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        mProgressView.animate().setDuration(shortAnimTime).alpha(
+                show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            }
+        });
+
     }
 
     @Override
@@ -309,50 +310,72 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public class UserLoginTask extends AsyncTask<Call, Void, Boolean> {
 
         private final String mEmail;
         private final String mPassword;
+        public boolean isLogin = false;
+        public LoginData loginData;
 
         UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
+
+        }
+
+        boolean run(Call call) throws IOException {
+
+//            call.enqueue(new Callback<LoginData>() {
+//                @Override
+//                public void onResponse(Call<LoginData> call, Response<LoginData> response) {
+//                    Log.i("retro ok", response.body() + " " + response.message() + " " + response.code() + " " + response.raw());
+//                    if (response.body().getResult()) {
+//                        mAuthTask.isLogin = true;
+//                        mAuthTask.loginData = response.body();
+//                    } else {
+//                        mAuthTask.isLogin = false;
+//                    }
+//                }
+//                @Override
+//                public void onFailure(Call<LoginData> call, Throwable t) {
+//                    Log.i("retro wrong", call.toString() + t.toString());
+//                }
+//            });
+            Response<LoginData> response = call.execute();
+            Log.i("retro ok", response.body() + " " + response.message() + " " + response.code() + " " + response.raw());
+            if (response.body().getResult()) {
+                mAuthTask.isLogin = true;
+                mAuthTask.loginData = response.body();
+            } else {
+                mAuthTask.isLogin = false;
+            }
+            return isLogin;
         }
 
         @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
+        protected Boolean doInBackground(Call... calls) {
             try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
+                run(calls[0]);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e("test", "no luck");
             }
+            return isLogin;
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
 
-            // TODO: register the new account here.
-            return true;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
             showProgress(false);
 
             if (success) {
-                loginToMainPage(mEmail);
+                loginToMainPage(loginData);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
+            mAuthTask = null;
         }
 
         @Override
@@ -362,8 +385,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    private void loginToMainPage(String mEmail) {
-        OneSignal.setEmail(mEmail);
+    private void loginToMainPage(LoginData data) {
+        OneSignal.sendTag("Uid", data.getUid());
         Intent intent = new Intent(this, DefaultDialogsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
@@ -372,6 +395,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("isLogin", true);
+        Gson gson = new Gson();
+        editor.putString("currentUser", gson.toJson(data.getUser()));
         editor.apply();
     }
 }

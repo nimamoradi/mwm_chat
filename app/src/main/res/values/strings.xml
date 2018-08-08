@@ -41,7 +41,7 @@
     <string name="prompt_password_repeat"> تکرار رمز</string>
     <string name="action_sign_in">ورود</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">نام کاربری باید ایمیل باشد</string>
+    <string name="error_invalid_email">نام کاربری باید بیش از 2 رقم باشد</string>
     <string name="error_invalid_password">رمز عبور خیلی کوتاه هست</string>
     <string name="error_incorrect_password">رمز عبور غلت است</string>
     <string name="error_field_required">این فیلد اجباری است </string>

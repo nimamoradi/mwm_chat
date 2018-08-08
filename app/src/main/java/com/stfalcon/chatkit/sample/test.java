@@ -26,7 +26,7 @@ public class test extends AppCompatActivity {
         setContentView(R.layout.activity_test);
         task ta = new task();
         mwmLoginProto gitHubService = mwmLoginProto.retrofit.create(mwmLoginProto.class);
-        final Call<LoginData> call = gitHubService.login(10, 12);
+        final Call<LoginData> call = gitHubService.login("bun", "hi");
         call.enqueue(new Callback<LoginData>() {
 
 
@@ -40,7 +40,7 @@ public class test extends AppCompatActivity {
                 Log.i("retro wrong", call.toString() + t.toString());
             }
         });
-//        ta.execute(call);
+        ta.execute(call);
 
 
     }
@@ -69,10 +69,5 @@ public class test extends AppCompatActivity {
         }
     }
 
-    class retro implements rest {
-        @Override
-        public Call<List<String>> listRepos(String user) {
-            return null;
-        }
-    }
+
 }
