@@ -40,6 +40,7 @@ import com.stfalcon.chatkit.sample.R;
 import com.stfalcon.chatkit.sample.features.demo.def.DefaultDialogsActivity;
 import com.stfalcon.chatkit.sample.prototype.mwmLoginProto;
 import com.stfalcon.chatkit.sample.responseModel.LoginData;
+import com.stfalcon.chatkit.sample.staticData;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -396,7 +397,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("isLogin", true);
         Gson gson = new Gson();
-        editor.putString("currentUser", gson.toJson(data.getUser()));
+        editor.putString(staticData.currentUserTag, gson.toJson(data.getUser()));
         editor.apply();
     }
 }
