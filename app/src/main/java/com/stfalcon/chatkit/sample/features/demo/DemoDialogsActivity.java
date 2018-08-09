@@ -1,13 +1,19 @@
 package com.stfalcon.chatkit.sample.features.demo;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
+import com.stfalcon.chatkit.sample.R;
 import com.stfalcon.chatkit.sample.common.data.model.Dialog;
 import com.stfalcon.chatkit.sample.utils.AppUtils;
 
@@ -21,9 +27,11 @@ public abstract class DemoDialogsActivity extends AppCompatActivity
     protected ImageLoader imageLoader;
     protected DialogsListAdapter<Dialog> dialogsAdapter;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         imageLoader = new ImageLoader() {
             @Override
@@ -31,6 +39,8 @@ public abstract class DemoDialogsActivity extends AppCompatActivity
                 Picasso.with(DemoDialogsActivity.this).load(url).into(imageView);
             }
         };
+
+
     }
 
     @Override

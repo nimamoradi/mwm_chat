@@ -1,18 +1,22 @@
 package com.stfalcon.chatkit.sample.features.demo.def;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.stfalcon.chatkit.dialogs.DialogsList;
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 import com.stfalcon.chatkit.sample.R;
-import com.stfalcon.chatkit.sample.common.data.fixtures.DialogsFixtures;
+
 import com.stfalcon.chatkit.sample.common.data.model.Dialog;
 import com.stfalcon.chatkit.sample.common.data.model.Message;
 import com.stfalcon.chatkit.sample.common.data.model.User;
@@ -30,7 +34,6 @@ import retrofit2.Call;
 
 public class DefaultDialogsActivity extends DemoDialogsActivity {
 
-    private ArrayList<Dialog> dialogs;
 
     public static void open(Context context) {
         context.startActivity(new Intent(context, DefaultDialogsActivity.class));
@@ -45,16 +48,50 @@ public class DefaultDialogsActivity extends DemoDialogsActivity {
 
         dialogsList = (DialogsList) findViewById(R.id.dialogsList);
         getMassagesFromServer();
+        mLoginFormView = dialogsList;
+        mProgressView = findViewById(R.id.login_progress);
+        showProgress(true);
     }
 
     @Override
     public void onDialogClick(Dialog dialog) {
-        //todo give user
+
         DefaultMessagesActivity.open(this);
     }
 
+    private View mLoginFormView;
+    private View mProgressView;
 
-    //todo get request from server
+    /**
+     * Shows the progress UI and hides the login form.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    protected void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+
+        int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+        mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        mLoginFormView.animate().setDuration(shortAnimTime).alpha(
+                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            }
+        });
+
+        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        mProgressView.animate().setDuration(shortAnimTime).alpha(
+                show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            }
+        });
+
+    }
     private void getMassagesFromServer() {
         getDialogListFromServerTask task = new getDialogListFromServerTask(this);
         task.execute();
@@ -113,6 +150,7 @@ public class DefaultDialogsActivity extends DemoDialogsActivity {
         protected void onPostExecute(List<Dialog> dialogs) {
             super.onPostExecute(dialogs);
             initAdapter((ArrayList<Dialog>) dialogs);
+            showProgress(false);
 
         }
     }
