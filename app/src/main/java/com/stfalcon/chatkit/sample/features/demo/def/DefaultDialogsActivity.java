@@ -98,7 +98,6 @@ public class DefaultDialogsActivity extends DemoDialogsActivity {
     }
 
     private void getMassagesFromServer() {
-        getDialogListFromServerTask task = new getDialogListFromServerTask(this);
         connect();
     }
 
@@ -125,41 +124,6 @@ public class DefaultDialogsActivity extends DemoDialogsActivity {
         dialogsAdapter.addItem(dialog);
     }
 
-    class getDialogListFromServerTask extends AsyncTask<Void, Void, List<Dialog>> {
-        public getDialogListFromServerTask(Context main) {
-            context = main;
-        }
-
-        private Context context;
-
-        @Override
-        protected List<Dialog> doInBackground(Void... voids) {
-            dialogProto getDialogService = dialogProto.retrofit.create(dialogProto.class);
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-            String user = preferences.getString(staticData.currentUserTag, "null");
-            Gson gson = new Gson();
-            User currentUser = gson.fromJson(user, User.class);
-
-
-            final Call<List<Dialog>> call = getDialogService.getDialogs(currentUser.getId());
-
-            try {
-                List<Dialog> temp = call.execute().body();
-                return temp;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(List<Dialog> dialogs) {
-            super.onPostExecute(dialogs);
-            initAdapter((ArrayList<Dialog>) dialogs);
-            showProgress(false);
-
-        }
-    }
 
     private void connect() {
         showProgress(true);
