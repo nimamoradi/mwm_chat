@@ -9,6 +9,7 @@ import com.onesignal.OneSignal;
  */
 
 public class ApplicationClass extends Application {
+
     @Override
     public void onCreate() {
         super.onCreate();

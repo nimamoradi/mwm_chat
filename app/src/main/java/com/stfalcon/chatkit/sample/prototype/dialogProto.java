@@ -29,6 +29,7 @@ public interface dialogProto {
 
     static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(staticData.serverAddress)
+            .client((new networkSetup()).provideOkHttpClient())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
 }

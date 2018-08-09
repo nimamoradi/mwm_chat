@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.stfalcon.chatkit.dialogs.DialogsList;
@@ -30,6 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class DefaultDialogsActivity extends DemoDialogsActivity {
@@ -47,10 +50,11 @@ public class DefaultDialogsActivity extends DemoDialogsActivity {
         setContentView(R.layout.activity_default_dialogs);
 
         dialogsList = (DialogsList) findViewById(R.id.dialogsList);
-        getMassagesFromServer();
-        mLoginFormView = dialogsList;
+        mLoginFormView = findViewById(R.id.dialogsList);
         mProgressView = findViewById(R.id.login_progress);
-        showProgress(true);
+        getMassagesFromServer();
+
+//        showProgress(true);
     }
 
     @Override
@@ -92,9 +96,10 @@ public class DefaultDialogsActivity extends DemoDialogsActivity {
         });
 
     }
+
     private void getMassagesFromServer() {
         getDialogListFromServerTask task = new getDialogListFromServerTask(this);
-        task.execute();
+        connect();
     }
 
     private void initAdapter(ArrayList<Dialog> dialogArrayList) {
@@ -139,7 +144,8 @@ public class DefaultDialogsActivity extends DemoDialogsActivity {
             final Call<List<Dialog>> call = getDialogService.getDialogs(currentUser.getId());
 
             try {
-                return call.execute().body();
+                List<Dialog> temp = call.execute().body();
+                return temp;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -153,5 +159,42 @@ public class DefaultDialogsActivity extends DemoDialogsActivity {
             showProgress(false);
 
         }
+    }
+
+    private void connect() {
+        showProgress(true);
+
+        dialogProto getDialogService = dialogProto.retrofit.create(dialogProto.class);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String user = preferences.getString(staticData.currentUserTag, "null");
+        Gson gson = new Gson();
+        User currentUser = gson.fromJson(user, User.class);
+
+
+        final Call<List<Dialog>> call = getDialogService.getDialogs(currentUser.getId());
+
+        call.enqueue(new Callback<List<Dialog>>() {
+            @Override
+            public void onResponse(Call<List<Dialog>> call, Response<List<Dialog>> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(DefaultDialogsActivity.this,
+                            "server returned data", Toast.LENGTH_SHORT).show();
+                    initAdapter((ArrayList<Dialog>) response.body());
+
+                } else {
+                    Toast.makeText(DefaultDialogsActivity.this,
+                            "Server returned an error", Toast.LENGTH_SHORT).show();
+                }
+                showProgress(false);
+            }
+
+            @Override
+            public void onFailure(Call<List<Dialog>> call, Throwable t) {
+                Toast.makeText(DefaultDialogsActivity.this,
+                        "network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+                showProgress(false);
+
+            }
+        });
     }
 }
