@@ -326,22 +326,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         boolean run(Call call) throws IOException {
 
-//            call.enqueue(new Callback<LoginData>() {
-//                @Override
-//                public void onResponse(Call<LoginData> call, Response<LoginData> response) {
-//                    Log.i("retro ok", response.body() + " " + response.message() + " " + response.code() + " " + response.raw());
-//                    if (response.body().getResult()) {
-//                        mAuthTask.isLogin = true;
-//                        mAuthTask.loginData = response.body();
-//                    } else {
-//                        mAuthTask.isLogin = false;
-//                    }
-//                }
-//                @Override
-//                public void onFailure(Call<LoginData> call, Throwable t) {
-//                    Log.i("retro wrong", call.toString() + t.toString());
-//                }
-//            });
+
             Response<LoginData> response = call.execute();
             Log.i("retro ok", response.body() + " " + response.message() + " " + response.code() + " " + response.raw());
             if (response.body().getResult()) {

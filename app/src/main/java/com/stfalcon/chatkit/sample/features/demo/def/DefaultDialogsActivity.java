@@ -18,9 +18,7 @@ import com.stfalcon.chatkit.sample.common.data.model.Message;
 import com.stfalcon.chatkit.sample.common.data.model.User;
 import com.stfalcon.chatkit.sample.features.demo.DemoDialogsActivity;
 import com.stfalcon.chatkit.sample.prototype.dialogProto;
-import com.stfalcon.chatkit.sample.prototype.mwmLoginProto;
-import com.stfalcon.chatkit.sample.responseModel.LoginData;
-import com.stfalcon.chatkit.sample.responseModel.dialogData;
+
 import com.stfalcon.chatkit.sample.staticData;
 
 import java.io.IOException;
@@ -28,8 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+
 
 public class DefaultDialogsActivity extends DemoDialogsActivity {
 
@@ -47,7 +44,7 @@ public class DefaultDialogsActivity extends DemoDialogsActivity {
         setContentView(R.layout.activity_default_dialogs);
 
         dialogsList = (DialogsList) findViewById(R.id.dialogsList);
-        initAdapter();
+        getMassagesFromServer();
     }
 
     @Override
@@ -56,18 +53,16 @@ public class DefaultDialogsActivity extends DemoDialogsActivity {
         DefaultMessagesActivity.open(this);
     }
 
+
     //todo get request from server
-    private ArrayList<Dialog> getMassagesFromServer() {
-        getDialogListFromServerTask  task=new getDialogListFromServerTask(this);
+    private void getMassagesFromServer() {
+        getDialogListFromServerTask task = new getDialogListFromServerTask(this);
         task.execute();
-
-
-        return DialogsFixtures.getDialogs();
     }
 
-    private void initAdapter() {
+    private void initAdapter(ArrayList<Dialog> dialogArrayList) {
         super.dialogsAdapter = new DialogsListAdapter<>(super.imageLoader);
-        super.dialogsAdapter.setItems(getMassagesFromServer());
+        super.dialogsAdapter.setItems(dialogArrayList);
 
         super.dialogsAdapter.setOnDialogClickListener(this);
         super.dialogsAdapter.setOnDialogLongClickListener(this);
@@ -88,7 +83,7 @@ public class DefaultDialogsActivity extends DemoDialogsActivity {
         dialogsAdapter.addItem(dialog);
     }
 
-    class getDialogListFromServerTask extends AsyncTask<Void, Void, List<dialogData>> {
+    class getDialogListFromServerTask extends AsyncTask<Void, Void, List<Dialog>> {
         public getDialogListFromServerTask(Context main) {
             context = main;
         }
@@ -96,7 +91,7 @@ public class DefaultDialogsActivity extends DemoDialogsActivity {
         private Context context;
 
         @Override
-        protected List<dialogData> doInBackground(Void... voids) {
+        protected List<Dialog> doInBackground(Void... voids) {
             dialogProto getDialogService = dialogProto.retrofit.create(dialogProto.class);
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             String user = preferences.getString(staticData.currentUserTag, "null");
@@ -104,7 +99,7 @@ public class DefaultDialogsActivity extends DemoDialogsActivity {
             User currentUser = gson.fromJson(user, User.class);
 
 
-            final Call<List<dialogData>> call = getDialogService.getDialogs(currentUser.getId());
+            final Call<List<Dialog>> call = getDialogService.getDialogs(currentUser.getId());
 
             try {
                 return call.execute().body();
@@ -115,8 +110,9 @@ public class DefaultDialogsActivity extends DemoDialogsActivity {
         }
 
         @Override
-        protected void onPostExecute(List<dialogData> dialogs) {
+        protected void onPostExecute(List<Dialog> dialogs) {
             super.onPostExecute(dialogs);
+            initAdapter((ArrayList<Dialog>) dialogs);
 
         }
     }

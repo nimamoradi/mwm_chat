@@ -2,7 +2,11 @@ package com.stfalcon.chatkit.sample.responseModel;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.stfalcon.chatkit.sample.common.data.model.Dialog;
 import com.stfalcon.chatkit.sample.common.data.model.Message;
+import com.stfalcon.chatkit.sample.common.data.model.User;
+
+import java.util.ArrayList;
 
 public class dialogData {
     @SerializedName("id")
@@ -60,5 +64,15 @@ public class dialogData {
 
     public void setUnreadCount(int unreadCount) {
         this.unreadCount = unreadCount;
+    }
+
+    public Dialog getDialogs(User currentUser) {
+        ArrayList<User> users = new ArrayList<User>();
+        users.add(currentUser);
+        users.add(lastMessage.getUser());
+        return new Dialog(id, dialogName, imgAvatar, users,
+                lastMessage, unreadCount
+
+        );
     }
 }

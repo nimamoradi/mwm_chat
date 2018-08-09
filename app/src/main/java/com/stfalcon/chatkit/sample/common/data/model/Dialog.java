@@ -1,5 +1,7 @@
 package com.stfalcon.chatkit.sample.common.data.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.stfalcon.chatkit.commons.models.IDialog;
 
 import java.util.ArrayList;
@@ -9,12 +11,25 @@ import java.util.ArrayList;
  */
 public class Dialog implements IDialog<Message> {
 
-    private String id;
-    private String dialogPhoto;
-    private String dialogName;
     private ArrayList<User> users;
-    private Message lastMessage;
 
+
+
+    @SerializedName("id")
+    @Expose
+    private String id;
+    @SerializedName("dialogName")
+    @Expose
+    private String dialogName;
+    @SerializedName("dialogPhoto")
+    @Expose
+    private String dialogPhoto;
+
+    @SerializedName("lastMessage")
+    @Expose
+    private Message lastMessage;
+    @SerializedName("unreadCount")
+    @Expose
     private int unreadCount;
 
     public Dialog(String id, String name, String photo,
@@ -45,6 +60,8 @@ public class Dialog implements IDialog<Message> {
 
     @Override
     public ArrayList<User> getUsers() {
+        ArrayList<User> users=new ArrayList<>(1);
+        users.add(lastMessage.getUser());
         return users;
     }
 

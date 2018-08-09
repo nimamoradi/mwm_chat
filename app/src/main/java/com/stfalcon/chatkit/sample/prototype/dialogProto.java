@@ -2,6 +2,7 @@ package com.stfalcon.chatkit.sample.prototype;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.stfalcon.chatkit.sample.common.data.model.Dialog;
 import com.stfalcon.chatkit.sample.responseModel.LoginData;
 import com.stfalcon.chatkit.sample.responseModel.dialogData;
 import com.stfalcon.chatkit.sample.staticData;
@@ -20,7 +21,7 @@ public interface dialogProto {
     @Headers({"Accept: application/json",
             "Content-Type: application/json"})
     @POST("dialog/getDialog?")
-    Call<List<dialogData>> getDialogs(@Query("uid") String uid);
+    Call<List<Dialog>> getDialogs(@Query("uid") String uid);
 
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
