@@ -44,6 +44,7 @@ public class DefaultMessagesActivity extends DemoMessagesActivity
 
     @Override
     public boolean onSubmit(CharSequence input) {
+        //todo add message to server to
         super.messagesAdapter.addToStart(
                 MessagesFixtures.getTextMessage(), true);
         return true;

@@ -86,6 +86,7 @@ public abstract class DemoMessagesActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        //todo update dialog activity
         if (selectionCount == 0) {
             super.onBackPressed();
         } else {
@@ -109,6 +110,7 @@ public abstract class DemoMessagesActivity extends AppCompatActivity
     }
 
     protected void loadMessages() {
+        //todo get more message
         new Handler().postDelayed(new Runnable() { //imitation of internet connection
             @Override
             public void run() {

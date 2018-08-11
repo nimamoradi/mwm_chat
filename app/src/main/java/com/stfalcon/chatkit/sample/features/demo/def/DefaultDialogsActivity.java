@@ -134,8 +134,10 @@ public class DefaultDialogsActivity extends DemoDialogsActivity {
         Gson gson = new Gson();
         User currentUser = gson.fromJson(user, User.class);
 
+        String time = preferences.getString(staticData.lastUpdateTimeTag, "0");
 
-        final Call<List<Dialog>> call = getDialogService.getDialogs(currentUser.getId());
+
+        final Call<List<Dialog>> call = getDialogService.getDialogs(currentUser.getId(), time);
 
         call.enqueue(new Callback<List<Dialog>>() {
             @Override
@@ -143,8 +145,17 @@ public class DefaultDialogsActivity extends DemoDialogsActivity {
                 if (response.isSuccessful()) {
                     Toast.makeText(DefaultDialogsActivity.this,
                             "server returned data", Toast.LENGTH_SHORT).show();
-                    initAdapter((ArrayList<Dialog>) response.body());
+                    if (response.body().size() == 0) {
+                        Toast.makeText(DefaultDialogsActivity.this, "something is wrong",
+                                Toast.LENGTH_SHORT).show();
+                        initAdapter(new ArrayList<Dialog>());
 
+                    } else
+                        initAdapter((ArrayList<Dialog>) response.body());
+//saving last update time
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(DefaultDialogsActivity.this);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString(staticData.lastUpdateTimeTag, String.valueOf(System.currentTimeMillis()));
                 } else {
                     Toast.makeText(DefaultDialogsActivity.this,
                             "Server returned an error", Toast.LENGTH_SHORT).show();
