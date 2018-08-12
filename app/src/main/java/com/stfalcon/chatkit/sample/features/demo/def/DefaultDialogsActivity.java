@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -136,12 +137,14 @@ public class DefaultDialogsActivity extends DemoDialogsActivity {
 
         String time = preferences.getString(staticData.lastUpdateTimeTag, "0");
 
-
+        if (currentUser.getId() == null)
+            currentUser.setId("0");
         final Call<List<Dialog>> call = getDialogService.getDialogs(currentUser.getId(), time);
 
         call.enqueue(new Callback<List<Dialog>>() {
             @Override
             public void onResponse(Call<List<Dialog>> call, Response<List<Dialog>> response) {
+                Log.i("retro", response.body() + "  " + response.message() + " " + response.raw());
                 if (response.isSuccessful()) {
                     Toast.makeText(DefaultDialogsActivity.this,
                             "server returned data", Toast.LENGTH_SHORT).show();
@@ -156,6 +159,7 @@ public class DefaultDialogsActivity extends DemoDialogsActivity {
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(DefaultDialogsActivity.this);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString(staticData.lastUpdateTimeTag, String.valueOf(System.currentTimeMillis()));
+                    editor.apply();
                 } else {
                     Toast.makeText(DefaultDialogsActivity.this,
                             "Server returned an error", Toast.LENGTH_SHORT).show();
