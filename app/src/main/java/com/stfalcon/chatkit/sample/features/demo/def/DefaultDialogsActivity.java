@@ -136,7 +136,6 @@ public class DefaultDialogsActivity extends DemoDialogsActivity {
         User currentUser = gson.fromJson(user, User.class);
 
         String time = preferences.getString(staticData.lastUpdateTimeTag, "0");
-
         if (currentUser.getId() == null)
             currentUser.setId("0");
         final Call<List<Dialog>> call = getDialogService.getDialogs(currentUser.getId(), time);

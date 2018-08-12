@@ -17,9 +17,7 @@ import com.stfalcon.chatkit.messages.MessagesListAdapter;
 import com.stfalcon.chatkit.sample.R;
 import com.stfalcon.chatkit.sample.common.data.fixtures.MessagesFixtures;
 import com.stfalcon.chatkit.sample.common.data.model.Message;
-import com.stfalcon.chatkit.sample.common.data.model.User;
-import com.stfalcon.chatkit.sample.features.demo.def.DefaultMessagesActivity;
-import com.stfalcon.chatkit.sample.staticData;
+
 import com.stfalcon.chatkit.sample.utils.AppUtils;
 
 import java.text.SimpleDateFormat;
@@ -34,7 +32,7 @@ public abstract class DemoMessagesActivity extends AppCompatActivity
         implements MessagesListAdapter.SelectionListener,
         MessagesListAdapter.OnLoadMoreListener {
 
-    private static final int TOTAL_MESSAGES_COUNT = 100;
+    public int TOTAL_MESSAGES_COUNT = 100;
 
     protected final String senderId = "0";
     protected ImageLoader imageLoader;
@@ -42,7 +40,7 @@ public abstract class DemoMessagesActivity extends AppCompatActivity
 
     private Menu menu;
     private int selectionCount;
-    private Date lastLoadedDate;
+    protected Date lastLoadedDate;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,6 +94,7 @@ public abstract class DemoMessagesActivity extends AppCompatActivity
 
     @Override
     public void onLoadMore(int page, int totalItemsCount) {
+        //todo get more message
         Log.i("TAG", "onLoadMore: " + page + " " + totalItemsCount);
         if (totalItemsCount < TOTAL_MESSAGES_COUNT) {
             loadMessages();

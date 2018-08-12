@@ -1,5 +1,7 @@
 package com.stfalcon.chatkit.sample.common.data.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.commons.models.MessageContentType;
 
@@ -12,10 +14,36 @@ public class Message implements IMessage,
         MessageContentType.Image, /*this is for default image messages implementation*/
         MessageContentType /*and this one is for custom content type (in this case - voice message)*/ {
 
+    @SerializedName("messageId")
+    @Expose
     private String id;
+    @SerializedName("text")
+    @Expose
     private String text;
+    @SerializedName("createdAt")
+    @Expose
     private Date createdAt;
+    @SerializedName("user")
+    @Expose
     private User user;
+    @SerializedName("imageUrl")
+    @Expose
+    private String imageUrl;
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+        image.url = imageUrl;
+    }
+
+
     private Image image;
     private Voice voice;
 
