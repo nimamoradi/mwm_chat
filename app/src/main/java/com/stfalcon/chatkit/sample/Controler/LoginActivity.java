@@ -37,6 +37,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.onesignal.OneSignal;
 import com.stfalcon.chatkit.sample.R;
+import com.stfalcon.chatkit.sample.features.demo.custom.holder.CustomHolderDialogsActivity;
 import com.stfalcon.chatkit.sample.features.demo.def.DefaultDialogsActivity;
 import com.stfalcon.chatkit.sample.prototype.mwmLoginProto;
 import com.stfalcon.chatkit.sample.responseModel.LoginData;
@@ -373,7 +374,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void loginToMainPage(LoginData data) {
         OneSignal.sendTag("Uid", data.getUid());
-        Intent intent = new Intent(this, DefaultDialogsActivity.class);
+        Intent intent = new Intent(this, CustomHolderDialogsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

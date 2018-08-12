@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.stfalcon.chatkit.sample.Controler.LoginActivity;
+import com.stfalcon.chatkit.sample.features.demo.custom.holder.CustomHolderDialogsActivity;
 import com.stfalcon.chatkit.sample.features.demo.def.DefaultDialogsActivity;
 
 public class splashActivity extends AppCompatActivity {
@@ -18,7 +19,7 @@ public class splashActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         boolean isLogin = preferences.getBoolean("isLogin", false);
         if (isLogin) {
-            Intent login = new Intent(this, DefaultDialogsActivity.class);
+            Intent login = new Intent(this, CustomHolderDialogsActivity.class);
             login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(login);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
