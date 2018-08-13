@@ -62,36 +62,7 @@ public class DefaultMessagesActivity extends DemoMessagesActivity
         //todo add message to server too
         messageProto getDialogService = messageProto.retrofit.create(messageProto.class);
 
-
-        Message last = new Message(currentUser.getId(),
-                currentUser, input.toString(), new Date(System.currentTimeMillis()));
-        super.messagesAdapter.addToStart(last, true);
-        final Call<Message> call = getDialogService.sendMessage(currentUser.getId(), last);
-        call.enqueue(new Callback<Message>() {
-            @Override
-            public void onResponse(Call<Message> call, Response<Message> response) {
-                Log.i("retro", response.body() + " " + response.raw());
-                if (response.isSuccessful()) {
-                    Toast.makeText(DefaultMessagesActivity.this,
-                            "message send", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    Toast.makeText(DefaultMessagesActivity.this,
-                            "error", Toast.LENGTH_SHORT).show();
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Message> call, Throwable t) {
-                Toast.makeText(DefaultMessagesActivity.this,
-                        "no internet", Toast.LENGTH_SHORT).show();
-
-            }
-
-        });
-
-        return true;
+        return false;
     }
 
     @Override
@@ -144,27 +115,6 @@ public class DefaultMessagesActivity extends DemoMessagesActivity
 
         String time = preferences.getString(staticData.lastUpdateTimeTag, "null");
 
-
-        final Call<ArrayList<Message>> call = getDialogService.getMessage(currentUser.getId(), time, 0, 10);
-
-        call.enqueue(new Callback<ArrayList<Message>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Message>> call, Response<ArrayList<Message>> response) {
-                Log.i("retro", response.body() + " " + response.raw());
-                if (response.isSuccessful()) {
-                    Toast.makeText(DefaultMessagesActivity.this,
-                            "server returned data", Toast.LENGTH_SHORT).show();
-                    AddMessage(response.body());
-                } else {
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<Message>> call, Throwable t) {
-
-            }
-
-        });
 
     }
 

@@ -20,13 +20,13 @@ public interface messageProto {
     @Headers({"Accept: application/json",
             "Content-Type: application/json"})
     @POST("message/getMessage?")
-    Call<ArrayList<Message>> getMessage(@Query("uid") String uid, @Query("timestamp") String time,
+    Call<ArrayList<Message>> getMessage(@Query("chatId") String chatId, @Query("uid") String uid, @Query("timestamp") String time,
                                         @Query("startIndex") int startIndex, @Query("endIndex") int endIndex);
 
     @Headers({"Accept: application/json",
             "Content-Type: application/json"})
     @POST("message/sendMessage?")
-    Call<Message> sendMessage(@Query("uid") String uid, @Query("newMessage") Message newMessage);
+    Call<Message> sendMessage(@Query("chatId") String chatId, @Query("uid") String uid, @Query("newMessage") Message newMessage);
 
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")

@@ -38,9 +38,14 @@ public class CustomHolderMessagesActivity extends DemoMessagesActivity
         MessageInput.InputListener,
         MessageInput.AttachmentsListener {
     User currentUser;
+    private static final int loadMoreCount = 5;
+    private int loadedCount = 0;
+    private String chatId;
 
-    public static void open(Context context) {
-        context.startActivity(new Intent(context, CustomHolderMessagesActivity.class));
+    public static void open(Context context, String chatId) {
+        Intent intent = new Intent(context, CustomHolderMessagesActivity.class);
+        intent.putExtra(staticData.chatId, chatId);
+        context.startActivity(intent);
     }
 
     private MessagesList messagesList;
@@ -56,6 +61,7 @@ public class CustomHolderMessagesActivity extends DemoMessagesActivity
         MessageInput input = (MessageInput) findViewById(R.id.input);
         input.setInputListener(this);
         input.setAttachmentsListener(this);
+        chatId = getIntent().getStringExtra(staticData.chatId);
         connect();
     }
 
@@ -68,17 +74,55 @@ public class CustomHolderMessagesActivity extends DemoMessagesActivity
 
     }
 
-    private void connect() {
+    @Override
+    public void onLoadMore(int page, int totalItemsCount) {
+        //todo get more message
+        Log.i("TAG", "onLoadMore: " + page + " " + totalItemsCount);
+        loadedCount = page;
+        load();
+
+    }
+
+    private void load() {
         messageProto getDialogService = messageProto.retrofit.create(messageProto.class);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String user = preferences.getString(staticData.currentUserTag, "null");
-        Gson gson = new Gson();
-        currentUser = gson.fromJson(user, User.class);
 
         String time = preferences.getString(staticData.lastUpdateTimeTag, "null");
 
 
-        final Call<ArrayList<Message>> call = getDialogService.getMessage(currentUser.getId(), time, 0, 10);
+        final Call<ArrayList<Message>> call = getDialogService.getMessage(chatId,currentUser.getId(), time, loadedCount, loadedCount + loadMoreCount);
+
+        call.enqueue(new Callback<ArrayList<Message>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Message>> call, Response<ArrayList<Message>> response) {
+                Log.i("retro", response.body() + " " + response.raw());
+                if (response.isSuccessful()) {
+                    Toast.makeText(CustomHolderMessagesActivity.this,
+                            "server returned data", Toast.LENGTH_SHORT).show();
+                    messagesAdapter.addToEnd(response.body(), true);
+
+                } else {
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Message>> call, Throwable t) {
+                Toast.makeText(CustomHolderMessagesActivity.this,
+                        "no internet", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+    }
+
+    private void connect() {
+        messageProto getDialogService = messageProto.retrofit.create(messageProto.class);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String time = preferences.getString(staticData.lastUpdateTimeTag, "null");
+
+
+        final Call<ArrayList<Message>> call = getDialogService.getMessage(chatId,currentUser.getId(), time, loadedCount, loadedCount + loadMoreCount);
 
         call.enqueue(new Callback<ArrayList<Message>>() {
             @Override
@@ -111,7 +155,7 @@ public class CustomHolderMessagesActivity extends DemoMessagesActivity
         Message last = new Message(currentUser.getId(),
                 currentUser, input.toString(), new Date(System.currentTimeMillis()));
         super.messagesAdapter.addToStart(last, true);
-        final Call<Message> call = getDialogService.sendMessage(currentUser.getId(), last);
+        final Call<Message> call = getDialogService.sendMessage(chatId,currentUser.getId(), last);
         call.enqueue(new Callback<Message>() {
             @Override
             public void onResponse(Call<Message> call, Response<Message> response) {

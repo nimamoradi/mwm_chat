@@ -52,6 +52,7 @@ public class CustomHolderDialogsActivity extends DemoDialogsActivity {
     private void getMassagesFromServer() {
         connect();
     }
+
     private void connect() {
 //        showProgress(true);
 
@@ -101,8 +102,10 @@ public class CustomHolderDialogsActivity extends DemoDialogsActivity {
             }
         });
     }
+
     private View mLoginFormView;
     private View mProgressView;
+
     /**
      * Shows the progress UI and hides the login form.
      */
@@ -133,9 +136,11 @@ public class CustomHolderDialogsActivity extends DemoDialogsActivity {
         });
 
     }
+
     @Override
     public void onDialogClick(Dialog dialog) {
-        CustomHolderMessagesActivity.open(this);
+
+        CustomHolderMessagesActivity.open(this, dialog.getId());
     }
 
     private void initAdapter(ArrayList<Dialog> dialogArrayList) {
