@@ -40,6 +40,8 @@
 
     <TextView
         android:id="@id/messageTime"
+        android:autoLink="web|email|phone"
+        android:linksClickable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@id/image"

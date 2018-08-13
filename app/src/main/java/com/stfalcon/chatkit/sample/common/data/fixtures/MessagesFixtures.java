@@ -14,7 +14,7 @@ public final class MessagesFixtures extends FixturesData {
     private MessagesFixtures() {
         throw new AssertionError();
     }
-///todo get user
+
     public static Message getImageMessage() {
         Message message = new Message(getRandomId(), getUser(), null);
         message.setImage(new Message.Image(getRandomImage()));
@@ -35,7 +35,7 @@ public final class MessagesFixtures extends FixturesData {
         return new Message(getRandomId(), getUser(), text);
     }
 
-    //todo get chat massages
+
     public static ArrayList<Message> getMessages(Date startDate) {
         ArrayList<Message> messages = new ArrayList<>();
         for (int i = 0; i < 10/*days count*/; i++) {
@@ -63,7 +63,7 @@ public final class MessagesFixtures extends FixturesData {
     private static User getUser() {
         boolean even = rnd.nextBoolean();
         return new User(
-                even ? "0" : "1",
+                "0",
                 even ? names.get(0) : names.get(1),
                 even ? avatars.get(0) : avatars.get(1),
                 true);

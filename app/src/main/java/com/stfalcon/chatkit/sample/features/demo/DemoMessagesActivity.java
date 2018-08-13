@@ -34,7 +34,7 @@ public abstract class DemoMessagesActivity extends AppCompatActivity
 
     public int TOTAL_MESSAGES_COUNT = 100;
 
-    protected final String senderId = "0";
+    protected String senderId = "0";
     protected ImageLoader imageLoader;
     protected MessagesListAdapter<Message> messagesAdapter;
 
@@ -54,11 +54,6 @@ public abstract class DemoMessagesActivity extends AppCompatActivity
         };
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        messagesAdapter.addToStart(MessagesFixtures.getTextMessage(), true);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

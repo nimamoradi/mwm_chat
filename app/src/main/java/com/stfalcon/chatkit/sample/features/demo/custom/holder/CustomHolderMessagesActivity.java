@@ -149,7 +149,21 @@ public class CustomHolderMessagesActivity extends DemoMessagesActivity
         AppUtils.showToast(this, R.string.on_log_click_message, false);
     }
 
+    private User getCurrentFromStorage() {
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String user = preferences.getString(staticData.currentUserTag, "null");
+        Gson gson = new Gson();
+        currentUser = gson.fromJson(user, User.class);
+        return currentUser;
+    }
+
     private void initAdapter() {
+        getCurrentFromStorage();
+        String id;
+        if (currentUser == null)
+            id = "0";
+        else id = currentUser.getId();
         MessageHolders holdersConfig = new MessageHolders()
                 .setIncomingTextConfig(
                         CustomIncomingTextMessageViewHolder.class,
@@ -164,7 +178,7 @@ public class CustomHolderMessagesActivity extends DemoMessagesActivity
                         CustomOutcomingImageMessageViewHolder.class,
                         R.layout.item_custom_outcoming_image_message);
 
-        super.messagesAdapter = new MessagesListAdapter<>(super.senderId, holdersConfig, super.imageLoader);
+        super.messagesAdapter = new MessagesListAdapter<>(id, holdersConfig, super.imageLoader);
         super.messagesAdapter.setOnMessageLongClickListener(this);
         super.messagesAdapter.setLoadMoreListener(this);
         messagesList.setAdapter(super.messagesAdapter);
