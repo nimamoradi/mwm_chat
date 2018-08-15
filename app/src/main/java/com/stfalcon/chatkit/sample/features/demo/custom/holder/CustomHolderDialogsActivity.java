@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.stfalcon.chatkit.dialogs.DialogsList;
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
+import com.stfalcon.chatkit.sample.Controler.newChatActivity;
 import com.stfalcon.chatkit.sample.R;
 import com.stfalcon.chatkit.sample.common.data.fixtures.DialogsFixtures;
 import com.stfalcon.chatkit.sample.common.data.model.Dialog;
@@ -74,13 +75,15 @@ public class CustomHolderDialogsActivity extends DemoDialogsActivity {
                 if (response.isSuccessful()) {
                     Toast.makeText(CustomHolderDialogsActivity.this,
                             "server returned data", Toast.LENGTH_SHORT).show();
-                    if (response.body().size() == 0) {
-                        Toast.makeText(CustomHolderDialogsActivity.this, "something is wrong",
-                                Toast.LENGTH_SHORT).show();
-                        initAdapter(new ArrayList<Dialog>());
+                    if (response.body() != null  ) {
+                        if (response.body().size() == 0) {
+                            Toast.makeText(CustomHolderDialogsActivity.this, "something is wrong",
+                                    Toast.LENGTH_SHORT).show();
+                            initAdapter(new ArrayList<Dialog>());
 
-                    } else
-                        initAdapter((ArrayList<Dialog>) response.body());
+                        } else
+                            initAdapter((ArrayList<Dialog>) response.body());
+                    }
 //saving last update time
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(CustomHolderDialogsActivity.this);
                     SharedPreferences.Editor editor = preferences.edit();
@@ -156,5 +159,11 @@ public class CustomHolderDialogsActivity extends DemoDialogsActivity {
         super.dialogsAdapter.setOnDialogLongClickListener(this);
 
         dialogsList.setAdapter(super.dialogsAdapter);
+    }
+
+    public void newChat(View view) {
+        Intent intent = new Intent(CustomHolderDialogsActivity.this, newChatActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
     }
 }

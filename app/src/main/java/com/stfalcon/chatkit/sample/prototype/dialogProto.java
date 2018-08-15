@@ -8,6 +8,7 @@ import com.stfalcon.chatkit.sample.responseModel.LoginData;
 import com.stfalcon.chatkit.sample.responseModel.dialogData;
 import com.stfalcon.chatkit.sample.staticData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -27,7 +28,7 @@ public interface dialogProto {
     @Headers({"Accept: application/json",
             "Content-Type: application/json"})
     @POST("dialog/getAllChats?")
-    Call<List<User>> getAllChats(@Query("uid") String uid);
+    Call<ArrayList<User>> getAllChats(@Query("uid") String uid);
 
     @Headers({"Accept: application/json",
             "Content-Type: application/json"})

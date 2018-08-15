@@ -17,14 +17,13 @@
 
         <activity
             android:name=".Controler.LoginActivity"
-            android:theme="@style/BlueThemeNoActionBar"></activity>
+            android:theme="@style/BlueThemeNoActionBar" />
         <activity
             android:name=".features.demo.custom.holder.CustomHolderMessagesActivity"
             android:theme="@style/BlueTheme" />
         <activity
             android:name=".features.demo.custom.holder.CustomHolderDialogsActivity"
             android:theme="@style/BlueTheme" />
-
         <activity
             android:name=".splashActivity"
             android:theme="@style/splash">
@@ -34,7 +33,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".test"></activity>
+        <activity android:name=".test" />
+        <activity android:name=".Controler.newChatActivity" />
     </application>
 
 </manifest>
