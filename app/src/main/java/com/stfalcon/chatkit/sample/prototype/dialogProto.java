@@ -32,8 +32,7 @@ public interface dialogProto {
     @Headers({"Accept: application/json",
             "Content-Type: application/json"})
     @POST("dialog/newDialog?")
-    Call<Dialog> newDialog(@Query("uid") String uid, @Query("timestamp") String time,
-                           @Query("newDialog")  Dialog newDialog);
+    Call<Dialog> newDialog(@Query("uid") String uid, @Query("newDialog") Dialog newDialog);
 
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
