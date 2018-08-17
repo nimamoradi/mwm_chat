@@ -26,6 +26,7 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -185,6 +186,7 @@ public class MessageInput extends RelativeLayout
         init(context);
         MessageInputStyle style = MessageInputStyle.parse(context, attrs);
 
+        this.messageInput.setImeOptions(EditorInfo.IME_ACTION_SEND);
         this.messageInput.setMaxLines(style.getInputMaxLines());
         this.messageInput.setHint(style.getInputHint());
         this.messageInput.setText(style.getInputText());

@@ -18,14 +18,15 @@ import com.stfalcon.chatkit.dialogs.DialogsList;
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 import com.stfalcon.chatkit.sample.Controler.newChatActivity;
 import com.stfalcon.chatkit.sample.R;
-import com.stfalcon.chatkit.sample.common.data.fixtures.DialogsFixtures;
 import com.stfalcon.chatkit.sample.common.data.model.Dialog;
 import com.stfalcon.chatkit.sample.common.data.model.User;
 import com.stfalcon.chatkit.sample.features.demo.DemoDialogsActivity;
 import com.stfalcon.chatkit.sample.features.demo.custom.holder.holders.dialogs.CustomDialogViewHolder;
 import com.stfalcon.chatkit.sample.prototype.dialogProto;
 import com.stfalcon.chatkit.sample.staticData;
+import com.stfalcon.chatkit.sample.utils.dialogData;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,10 +34,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CustomHolderDialogsActivity extends DemoDialogsActivity {
+public class CustomHolderDialogsActivity extends DemoDialogsActivity implements Serializable {
 
-    public static void open(Context context) {
-        context.startActivity(new Intent(context, CustomHolderDialogsActivity.class));
+    public CustomHolderDialogsActivity() {
+    }
+
+
+    public DialogsListAdapter<Dialog> getDialog() {
+        return super.dialogsAdapter;
     }
 
     private DialogsList dialogsList;
@@ -75,7 +80,7 @@ public class CustomHolderDialogsActivity extends DemoDialogsActivity {
                 if (response.isSuccessful()) {
                     Toast.makeText(CustomHolderDialogsActivity.this,
                             "server returned data", Toast.LENGTH_SHORT).show();
-                    if (response.body() != null  ) {
+                    if (response.body() != null) {
                         if (response.body().size() == 0) {
                             Toast.makeText(CustomHolderDialogsActivity.this, "something is wrong",
                                     Toast.LENGTH_SHORT).show();
@@ -161,9 +166,12 @@ public class CustomHolderDialogsActivity extends DemoDialogsActivity {
         dialogsList.setAdapter(super.dialogsAdapter);
     }
 
+
+
     public void newChat(View view) {
         Intent intent = new Intent(CustomHolderDialogsActivity.this, newChatActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        intent.putExtra("dialogClass",new dialogData(getDialog()));
         startActivity(intent);
     }
 }

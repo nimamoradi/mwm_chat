@@ -35,6 +35,7 @@ import com.stfalcon.chatkit.commons.models.IDialog;
 import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.utils.DateFormatter;
 
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,7 +51,7 @@ import static android.view.View.VISIBLE;
  */
 @SuppressWarnings("WeakerAccess")
 public class DialogsListAdapter<DIALOG extends IDialog>
-        extends RecyclerView.Adapter<DialogsListAdapter.BaseDialogViewHolder> {
+        extends RecyclerView.Adapter<DialogsListAdapter.BaseDialogViewHolder> implements Serializable{
 
     private List<DIALOG> items = new ArrayList<>();
     private int itemLayoutId;

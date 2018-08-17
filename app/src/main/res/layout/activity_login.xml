@@ -50,7 +50,6 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_text_back"
                     android:drawableEnd="@drawable/personal_icon"
-
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
@@ -65,7 +64,6 @@
                     style="@style/editTextTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:background="@drawable/edit_text_back"
                     android:drawableEnd="@drawable/password_icon"
                     android:drawableRight="@drawable/password_icon"

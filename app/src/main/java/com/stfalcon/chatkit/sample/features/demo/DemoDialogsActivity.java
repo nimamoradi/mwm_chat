@@ -17,12 +17,14 @@ import com.stfalcon.chatkit.sample.R;
 import com.stfalcon.chatkit.sample.common.data.model.Dialog;
 import com.stfalcon.chatkit.sample.utils.AppUtils;
 
+import java.io.Serializable;
+
 /*
  * Created by troy379 on 05.04.17.
  */
 public abstract class DemoDialogsActivity extends AppCompatActivity
         implements DialogsListAdapter.OnDialogClickListener<Dialog>,
-        DialogsListAdapter.OnDialogLongClickListener<Dialog> {
+        DialogsListAdapter.OnDialogLongClickListener<Dialog> ,Serializable {
 
     protected ImageLoader imageLoader;
     protected DialogsListAdapter<Dialog> dialogsAdapter;
