@@ -24,7 +24,7 @@ import java.io.Serializable;
  */
 public abstract class DemoDialogsActivity extends AppCompatActivity
         implements DialogsListAdapter.OnDialogClickListener<Dialog>,
-        DialogsListAdapter.OnDialogLongClickListener<Dialog> ,Serializable {
+        DialogsListAdapter.OnDialogLongClickListener<Dialog>  {
 
     protected ImageLoader imageLoader;
     protected DialogsListAdapter<Dialog> dialogsAdapter;

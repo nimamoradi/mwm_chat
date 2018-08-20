@@ -3,13 +3,14 @@ package com.stfalcon.chatkit.sample.common.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.stfalcon.chatkit.commons.models.IDialog;
+import com.stfalcon.chatkit.commons.models.IMessage;
 
 import java.util.ArrayList;
 
 /*
  * Created by troy379 on 04.04.17.
  */
-public class Dialog implements IDialog<Message> {
+public class Dialog implements IDialog<IMessage> {
 
     private ArrayList<User> users;
 
@@ -71,9 +72,16 @@ public class Dialog implements IDialog<Message> {
     }
 
     @Override
-    public void setLastMessage(Message lastMessage) {
-        this.lastMessage = lastMessage;
+    public void setLastMessage(IMessage message) {
+        this.lastMessage = new Message(message.getId(),
+                new User(message.getUser().getId(),message.getUser().getName(),message.getUser().getAvatar(),true),
+                message.getText());
     }
+
+//    @Override
+//    public void setLastMessage(Message lastMessage) {
+//        this.lastMessage = lastMessage;
+//    }
 
     @Override
     public int getUnreadCount() {

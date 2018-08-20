@@ -9,8 +9,10 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -19,7 +21,9 @@ import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 import com.stfalcon.chatkit.sample.Controler.newChatActivity;
 import com.stfalcon.chatkit.sample.R;
 import com.stfalcon.chatkit.sample.common.data.model.Dialog;
+import com.stfalcon.chatkit.sample.common.data.model.Message;
 import com.stfalcon.chatkit.sample.common.data.model.User;
+import com.stfalcon.chatkit.sample.common.data.model.simpleMessage;
 import com.stfalcon.chatkit.sample.features.demo.DemoDialogsActivity;
 import com.stfalcon.chatkit.sample.features.demo.custom.holder.holders.dialogs.CustomDialogViewHolder;
 import com.stfalcon.chatkit.sample.prototype.dialogProto;
@@ -148,7 +152,10 @@ public class CustomHolderDialogsActivity extends DemoDialogsActivity implements 
     @Override
     public void onDialogClick(Dialog dialog) {
 
-        CustomHolderMessagesActivity.open(this, dialog.getId());
+        Intent intent = new Intent(this, CustomHolderMessagesActivity.class);
+        intent.putExtra(staticData.chatId, dialog.getId());
+        startActivityForResult(intent, staticData.updateDialog);
+
     }
 
     private void initAdapter(ArrayList<Dialog> dialogArrayList) {
@@ -166,12 +173,30 @@ public class CustomHolderDialogsActivity extends DemoDialogsActivity implements 
         dialogsList.setAdapter(super.dialogsAdapter);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        // check that it is the SecondActivity with an OK result
+        if (requestCode == staticData.updateDialog) {
+            if (resultCode == RESULT_OK) { // Activity.RESULT_OK
+                String dialogId = data.getStringExtra(staticData.dialogId);
+                simpleMessage messageTagId = (simpleMessage) data.getParcelableExtra(staticData.messageTagId);
+
+
+                dialogsAdapter.updateDialogWithMessage(dialogId, messageTagId);
+                // get String data from Intent
+
+
+
+            }
+        }
+    }
 
     public void newChat(View view) {
         Intent intent = new Intent(CustomHolderDialogsActivity.this, newChatActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        intent.putExtra("dialogClass",new dialogData(getDialog()));
+        intent.putExtra("dialogClass", new dialogData(getDialog()));
         startActivity(intent);
     }
 }

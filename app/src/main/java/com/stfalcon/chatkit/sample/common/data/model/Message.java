@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.commons.models.MessageContentType;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /*
@@ -12,7 +13,8 @@ import java.util.Date;
  */
 public class Message implements IMessage,
         MessageContentType.Image, /*this is for default image messages implementation*/
-        MessageContentType /*and this one is for custom content type (in this case - voice message)*/ {
+        MessageContentType,/*and this one is for custom content type (in this case - voice message)*/
+        Serializable {
 
     @SerializedName("messageId")
     @Expose

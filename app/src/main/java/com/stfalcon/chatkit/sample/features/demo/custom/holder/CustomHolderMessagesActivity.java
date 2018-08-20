@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.messages.MessageHolders;
 import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
@@ -17,6 +18,7 @@ import com.stfalcon.chatkit.sample.R;
 import com.stfalcon.chatkit.sample.common.data.fixtures.MessagesFixtures;
 import com.stfalcon.chatkit.sample.common.data.model.Message;
 import com.stfalcon.chatkit.sample.common.data.model.User;
+import com.stfalcon.chatkit.sample.common.data.model.simpleMessage;
 import com.stfalcon.chatkit.sample.features.demo.DemoMessagesActivity;
 import com.stfalcon.chatkit.sample.features.demo.custom.holder.holders.messages.CustomIncomingImageMessageViewHolder;
 import com.stfalcon.chatkit.sample.features.demo.custom.holder.holders.messages.CustomIncomingTextMessageViewHolder;
@@ -26,6 +28,7 @@ import com.stfalcon.chatkit.sample.prototype.messageProto;
 import com.stfalcon.chatkit.sample.staticData;
 import com.stfalcon.chatkit.sample.utils.AppUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -42,11 +45,6 @@ public class CustomHolderMessagesActivity extends DemoMessagesActivity
     private int loadedCount = 0;
     private String chatId;
 
-    public static void open(Context context, String chatId) {
-        Intent intent = new Intent(context, CustomHolderMessagesActivity.class);
-        intent.putExtra(staticData.chatId, chatId);
-        context.startActivity(intent);
-    }
 
     private MessagesList messagesList;
 
@@ -63,6 +61,24 @@ public class CustomHolderMessagesActivity extends DemoMessagesActivity
         input.setAttachmentsListener(this);
         chatId = getIntent().getStringExtra(staticData.chatId);
         connect();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        Intent intent = new Intent();
+        intent.putExtra(staticData.dialogId, chatId);
+        IMessage message = super.messagesAdapter.getLastMessage();
+        simpleMessage simpleMessage = new simpleMessage(message.getId(), message.getText(),
+                message.getCreatedAt(), message.getUser());
+
+        intent.putExtra(staticData.messageTagId, simpleMessage
+
+        );
+
+        setResult(RESULT_OK, intent);
+        finish();
+//        super.onBackPressed();
     }
 
     private void AddMessage(ArrayList<Message> messages) {
@@ -90,7 +106,7 @@ public class CustomHolderMessagesActivity extends DemoMessagesActivity
         String time = preferences.getString(staticData.lastUpdateTimeTag, "null");
 
 
-        final Call<ArrayList<Message>> call = getDialogService.getMessage(chatId,currentUser.getId(), time, loadedCount, loadedCount + loadMoreCount);
+        final Call<ArrayList<Message>> call = getDialogService.getMessage(chatId, currentUser.getId(), time, loadedCount, loadedCount + loadMoreCount);
 
         call.enqueue(new Callback<ArrayList<Message>>() {
             @Override
@@ -122,7 +138,7 @@ public class CustomHolderMessagesActivity extends DemoMessagesActivity
         String time = preferences.getString(staticData.lastUpdateTimeTag, "null");
 
 
-        final Call<ArrayList<Message>> call = getDialogService.getMessage(chatId,currentUser.getId(), time, loadedCount, loadedCount + loadMoreCount);
+        final Call<ArrayList<Message>> call = getDialogService.getMessage(chatId, currentUser.getId(), time, loadedCount, loadedCount + loadMoreCount);
 
         call.enqueue(new Callback<ArrayList<Message>>() {
             @Override
@@ -148,14 +164,14 @@ public class CustomHolderMessagesActivity extends DemoMessagesActivity
 
     @Override
     public boolean onSubmit(CharSequence input) {
-        //todo add message to server too
+
         messageProto getDialogService = messageProto.retrofit.create(messageProto.class);
 
 
         Message last = new Message(currentUser.getId(),
                 currentUser, input.toString(), new Date(System.currentTimeMillis()));
         super.messagesAdapter.addToStart(last, true);
-        final Call<Message> call = getDialogService.sendMessage(chatId,currentUser.getId(), last);
+        final Call<Message> call = getDialogService.sendMessage(chatId, currentUser.getId(), last);
         call.enqueue(new Callback<Message>() {
             @Override
             public void onResponse(Call<Message> call, Response<Message> response) {

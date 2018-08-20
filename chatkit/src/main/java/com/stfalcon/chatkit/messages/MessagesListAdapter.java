@@ -19,6 +19,8 @@ package com.stfalcon.chatkit.messages;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+
+
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
@@ -36,6 +38,7 @@ import com.stfalcon.chatkit.commons.ViewHolder;
 import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.utils.DateFormatter;
 
+import java.io.ObjectStreamException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -951,5 +954,10 @@ public class MessagesListAdapter<MESSAGE extends IMessage>
         public OutcomingMessageViewHolder(View itemView) {
             super(itemView);
         }
+    }
+
+    public IMessage getLastMessage() {
+
+       return (IMessage) items.get(0).item;
     }
 }

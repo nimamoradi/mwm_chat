@@ -16,10 +16,13 @@
 
 package com.stfalcon.chatkit.commons.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * For implementing by real user model
  */
-public interface IUser {
+public interface IUser extends Parcelable {
 
     /**
      * Returns the user's id
@@ -41,4 +44,10 @@ public interface IUser {
      * @return the user's avatar image url
      * */
     String getAvatar();
+
+    @Override
+    int describeContents();
+
+    @Override
+    void writeToParcel(Parcel dest, int flags);
 }
