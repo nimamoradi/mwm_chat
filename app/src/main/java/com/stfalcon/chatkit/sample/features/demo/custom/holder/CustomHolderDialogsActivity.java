@@ -181,12 +181,11 @@ public class CustomHolderDialogsActivity extends DemoDialogsActivity implements 
         if (requestCode == staticData.updateDialog) {
             if (resultCode == RESULT_OK) { // Activity.RESULT_OK
                 String dialogId = data.getStringExtra(staticData.dialogId);
-                simpleMessage messageTagId = (simpleMessage) data.getParcelableExtra(staticData.messageTagId);
+                simpleMessage messageTagId = data.getParcelableExtra(staticData.messageTagId);
 
 
-                dialogsAdapter.updateDialogWithMessage(dialogId, messageTagId);
+                dialogsAdapter.updateDialogWithMessage(dialogId, messageTagId, true);
                 // get String data from Intent
-
 
 
             }

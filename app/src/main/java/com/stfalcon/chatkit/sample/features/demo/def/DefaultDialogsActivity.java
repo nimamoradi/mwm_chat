@@ -114,7 +114,7 @@ public class DefaultDialogsActivity extends DemoDialogsActivity {
 
     //for example
     private void onNewMessage(String dialogId, Message message) {
-        boolean isUpdated = dialogsAdapter.updateDialogWithMessage(dialogId, message);
+        boolean isUpdated = dialogsAdapter.updateDialogWithMessage(dialogId, message, false);
         if (!isUpdated) {
             //Dialog with this ID doesn't exist, so you can create new Dialog or update all dialogs list
         }

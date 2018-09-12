@@ -69,14 +69,16 @@ public class CustomHolderMessagesActivity extends DemoMessagesActivity
         Intent intent = new Intent();
         intent.putExtra(staticData.dialogId, chatId);
         IMessage message = super.messagesAdapter.getLastMessage();
-        simpleMessage simpleMessage = new simpleMessage(message.getId(), message.getText(),
-                message.getCreatedAt(), message.getUser());
+        if (message != null) {
+            simpleMessage simpleMessage = new simpleMessage(message.getId(), message.getText(),
+                    message.getCreatedAt(), message.getUser());
 
-        intent.putExtra(staticData.messageTagId, simpleMessage
+            intent.putExtra(staticData.messageTagId, simpleMessage
 
-        );
+            );
 
-        setResult(RESULT_OK, intent);
+            setResult(RESULT_OK, intent);
+        }
         finish();
 //        super.onBackPressed();
     }

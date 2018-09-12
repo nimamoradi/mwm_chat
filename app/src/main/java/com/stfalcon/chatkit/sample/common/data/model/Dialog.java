@@ -15,7 +15,6 @@ public class Dialog implements IDialog<IMessage> {
     private ArrayList<User> users;
 
 
-
     @SerializedName("id")
     @Expose
     private String id;
@@ -61,7 +60,7 @@ public class Dialog implements IDialog<IMessage> {
 
     @Override
     public ArrayList<User> getUsers() {
-        ArrayList<User> users=new ArrayList<>(1);
+        ArrayList<User> users = new ArrayList<>(1);
         users.add(lastMessage.getUser());
         return users;
     }
@@ -74,7 +73,7 @@ public class Dialog implements IDialog<IMessage> {
     @Override
     public void setLastMessage(IMessage message) {
         this.lastMessage = new Message(message.getId(),
-                new User(message.getUser().getId(),message.getUser().getName(),message.getUser().getAvatar(),true),
+                new User(message.getUser().getId(), message.getUser().getName(), message.getUser().getAvatar(), true),
                 message.getText());
     }
 
@@ -88,6 +87,7 @@ public class Dialog implements IDialog<IMessage> {
         return unreadCount;
     }
 
+    @Override
     public void setUnreadCount(int unreadCount) {
         this.unreadCount = unreadCount;
     }

@@ -37,4 +37,6 @@ public interface IDialog<MESSAGE extends IMessage> {
     void setLastMessage(MESSAGE message);
 
     int getUnreadCount();
+
+    void setUnreadCount(int count);
 }

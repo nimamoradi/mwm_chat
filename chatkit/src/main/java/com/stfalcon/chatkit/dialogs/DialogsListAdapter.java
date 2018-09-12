@@ -51,7 +51,7 @@ import static android.view.View.VISIBLE;
  */
 @SuppressWarnings("WeakerAccess")
 public class DialogsListAdapter<DIALOG extends IDialog>
-        extends RecyclerView.Adapter<DialogsListAdapter.BaseDialogViewHolder> implements Serializable{
+        extends RecyclerView.Adapter<DialogsListAdapter.BaseDialogViewHolder> implements Serializable {
 
     private List<DIALOG> items = new ArrayList<>();
     private int itemLayoutId;
@@ -217,8 +217,9 @@ public class DialogsListAdapter<DIALOG extends IDialog>
 
     /**
      * Move an item
+     *
      * @param fromPosition the actual position of the item
-     * @param toPosition the new position of the item
+     * @param toPosition   the new position of the item
      */
     public void moveItem(int fromPosition, int toPosition) {
         DIALOG dialog = items.remove(fromPosition);
@@ -287,11 +288,16 @@ public class DialogsListAdapter<DIALOG extends IDialog>
      * @return false if dialog doesn't exist.
      */
     @SuppressWarnings("unchecked")
-    public boolean updateDialogWithMessage(String dialogId, IMessage message) {
+    public boolean updateDialogWithMessage(String dialogId, IMessage message, boolean clear) {
         boolean dialogExist = false;
         for (int i = 0; i < items.size(); i++) {
             if (items.get(i).getId().equals(dialogId)) {
                 items.get(i).setLastMessage(message);
+                if (clear)
+                    items.get(i).setUnreadCount(0);
+                else
+                    items.get(i).setUnreadCount(items.get(i).getUnreadCount() + 1);
+
                 notifyItemChanged(i);
                 if (i != 0) {
                     Collections.swap(items, i, 0);
@@ -422,17 +428,17 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     void setStyle(DialogListStyle dialogStyle) {
         this.dialogStyle = dialogStyle;
     }
-    
+
     /**
-    * @return the position of a dialog in the dialogs list.
-    */
+     * @return the position of a dialog in the dialogs list.
+     */
     public int getDialogPosition(DIALOG dialog) {
         return this.items.indexOf(dialog);
     }
 
     /*
-    * LISTENERS
-    * */
+     * LISTENERS
+     * */
     public interface OnDialogClickListener<DIALOG extends IDialog> {
         void onDialogClick(DIALOG dialog);
     }
@@ -450,8 +456,8 @@ public class DialogsListAdapter<DIALOG extends IDialog>
     }
 
     /*
-    * HOLDERS
-    * */
+     * HOLDERS
+     * */
     public abstract static class BaseDialogViewHolder<DIALOG extends IDialog>
             extends ViewHolder<DIALOG> {
 
