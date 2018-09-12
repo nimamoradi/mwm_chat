@@ -1,85 +1,68 @@
-# ChatKit for Android
 
-[ ![Download](https://api.bintray.com/packages/troy379/maven/ChatKit/images/download.svg) ](https://bintray.com/troy379/maven/ChatKit/_latestVersion)
+# پیام رسان شرکتی 
 
-ChatKit is a library designed to simplify the development of UI for such a trivial task as chat. It has flexible possibilities for styling, customizing and data management
 
+این برنامه تهیه شده تا نمونه ی برای یک برنامه پیام رسان برای موسسات و شرکت ها باشد
 <p align="center">
-<img src="images/HEADER.jpg">
+ <img src="images/login.png">
+ <img src="images/chatPage1.png">
+ <img src="images/messages.png">
+ <img src="images/chatPage2.png">
 </p>
 
-### Features
+### ویژگی ها 
 
-* Ready-to-use already styled solution for quick implementation;
-* Default and custom media messages;
-* Fully customizable layouts - setting styles out of the box (use your own colors, text appearances, drawables, selectors and sizes) or even create your own custom markup or/and holders for unique behaviour;
-* List of dialogs, including tete-a-tete and group chats, markers for unread messages and last user message view;
-* List of messages (incoming and outcoming) with history pagination and already calculated dates headers;
-* Different avatars with no specific realization of image loading - you can use any library you want;
-* Selection mode for interacting with messages;
-* Links highlighting
-* Easy dates formatting;
-* Your own models for dialogs and messages - there is no converting needed;
-* Ready to use message input view;
-* Custom animations (according to RecyclerView usage).
+* صفحه ورود کاربر
+* نمونه اماده برای  استفاده و ظاهر گرافیکی مناسب
+* امکان ارسال پیام ها (عکس،فایل،فیلم) با ظاهر پیش فرض یا دلخواه 
+* صفحات ویرایش پذیر شامل تغییر پس زمینه،ارم ها،عکس و فونت  
+* لیست چت ها شامل چت های گروهی نمایش اخرین پیام،تعداد پیام های خوانده نشده و وضعیت کاربر
+* لیست پیام ها شامل عکس فرستنده و گیرنده و تاریخ ارسال  
+* امکان ثبت عکس پروفایل 
+*  امکان ویرایش یا حذف پیام ها 
+* برجسته سازی ادرس ایمیل یا شماره تلفن یا آدرس سایت
+* امکان ویرایش ساده مدل برحسب نیاز
+* محل اماده برای تایپ پیام همراه با دکمه افزودن پیوست
+* انمیشن ها روان و زیبا
+* شامل نمونه ارتباط با سرور
 
-### Who we are
-Need iOS and Android apps, MVP development or prototyping? Contact us via info@stfalcon.com. We develop software since 2009, and we're known experts in this field. Check out our [portfolio](https://stfalcon.com/en/portfolio) and see more libraries from [stfalcon-studio](https://stfalcon-studio.github.io/).
+### درباره ما 
 
-## Demo Application
+این برنامه طبق الگو MVVM
+، طراحی شده این یک نونه اولیه برای شرکت رینگ سازی مشهد می باشد
+این برنامه به منظور ارتباط سریع و ارسال اعلامیه و اخبار و همچنین به منظور ایجاد یک فضای کنترل شده که بروی شبکه داخلی شرکت ها نیز کار کند طراحی شد 
+اگر علاقه مند به توسعه نرم افزار پیام رسان یا برنامه دیگر هستید با ما تماس بگیرید
 
-[![Get it on Google Play](https://play.google.com/intl/en_us/badges/images/badge_new.png)](https://play.google.com/store/apps/details?id=com.stfalcon.chatkit.sample)
-
-### How to use
-
-To implement all of the features above you can use the following components:
-
-* [DialogsList](docs/COMPONENT_DIALOGS_LIST.MD);
-* [MessagesList](docs/COMPONENT_MESSAGES_LIST.md);
-* [MessageInput](docs/COMPONENT_MESSAGE_INPUT.MD);
+ایمیل: ni_moradi@yahoo.com  
 
 
-### Download
 
-Download via Gradle:
-```gradle
-api 'com.github.stfalcon:chatkit:0.3.0'
-```
+## دمو برنامه
+[![Get it on Google Play](https://play.google.com/intl/en_us/badges/images/badge_new.png)](https://drive.google.com/open?id=1fhhtjlRnobfEr5DLlHxfbuDQRrshhtbX)
 
-or Maven:
-```xml
-<dependency>
-  <groupId>com.github.stfalcon</groupId>
-  <artifactId>chatkit</artifactId>
-  <version>0.3.0</version>
-  <type>pom</type>
-</dependency>
-```
 
-### Try it
 
-Check out the [sample project](/sample/src/main) to try it yourself! :wink:
 
-### Changelog
-[See the changelog](docs/CHANGELOG.md) to be aware of latest improvements and fixes.
 
-### Gratitude
+###  کد برنامه
 
-We were inspired by [JSQMessagesViewController](https://github.com/jessesquires/JSQMessagesViewController) library for iOS. In our plans to improve functionality to give Android developers wide opportunities to create fast and good-looking UI for chats in their applications.
+کد برنامه در  [اینجاست](/sample/src/main) :
 
-Please, contact us via github@stfalcon.com if you are using this library, just to let us know :)
-Thank you!
 
-### License
+
+ایده طراحی گرافیکی [JSQMessagesViewController](https://github.com/jessesquires/JSQMessagesViewController) library for iOS. In our plans to improve functionality to give Android developers wide opportunities to create fast and good-looking UI for chats in their applications.
+
+
+### License -مجوز
 
 ```
-Copyright (C) 2017 stfalcon.com
+Copyright (C) 2018
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-https://github.com/stfalcon-studio/ChatKit/blob/master/LICENSE
+https://github.com/nimamoradi/mwm_chat/blob/master/LICENSE
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
