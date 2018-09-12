@@ -46,45 +46,28 @@
                 <AutoCompleteTextView
                     android:id="@+id/email"
                     style="@style/editTextTheme"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/edit_text_back"
+                    android:textAlignment="center"
                     android:drawableEnd="@drawable/personal_icon"
+                    android:drawableRight="@drawable/personal_icon"
                     android:hint="@string/prompt_email"
-                    android:inputType="textEmailAddress"
-                    android:maxLines="1"
-                    android:padding="10dp"
-                    android:singleLine="true"
-                    android:textColorHint="@color/secondary_text"
-                    android:drawableRight="@drawable/personal_icon" />
-
+                    android:inputType="textEmailAddress" />
 
                 <EditText
+                    android:textAlignment="center"
                     android:id="@+id/password"
                     style="@style/editTextTheme"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/edit_text_back"
                     android:drawableEnd="@drawable/password_icon"
                     android:drawableRight="@drawable/password_icon"
-                    android:ellipsize="end"
-                    android:gravity="right"
                     android:hint="@string/prompt_password"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:padding="10dp"
-                    android:singleLine="true"
-                    android:textColorHint="@color/secondary_text" />
+                    android:inputType="textEmailAddress|textPassword" />
 
 
                 <Button
                     android:id="@+id/email_sign_in_button"
                     style="?android:textAppearanceSmall"
                     android:layout_width="wrap_content"
-                    android:layout_gravity="center"
                     android:layout_height="35dp"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="8dp"
@@ -93,14 +76,7 @@
                     android:textColor="#ffffff"
                     android:textStyle="italic" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal">
 
-
-                </LinearLayout>
             </LinearLayout>
 
         </ScrollView>
