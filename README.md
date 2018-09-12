@@ -3,12 +3,12 @@
 
 
 این برنامه تهیه شده تا نمونه ی برای یک برنامه پیام رسان برای موسسات و شرکت ها باشد
-<p align="center">
- <img src="images/login.png">
- <img src="images/chatPage1.png">
- <img src="images/messages.png">
- <img src="images/chatPage2.png">
-</p>
+  <p align="center" >
+        <img width="20%" src="images/login.png">
+        <img width="20%" src="images/chatPage1.png">
+        <img width="20%" src="images/messages.png">
+        <img width="20%" src="images/chatPage2.png">
+    </p>
 
 ### ویژگی ها 
 
