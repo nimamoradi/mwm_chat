@@ -38,6 +38,7 @@
 
 
 ## دمو برنامه
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8b13b882d6b746b198aeabccf9727e28)](https://app.codacy.com/app/nimamoradi/mwm_chat?utm_source=github.com&utm_medium=referral&utm_content=nimamoradi/mwm_chat&utm_campaign=Badge_Grade_Dashboard)
 [![Get it on Google Play](https://play.google.com/intl/en_us/badges/images/badge_new.png)](https://drive.google.com/open?id=1fhhtjlRnobfEr5DLlHxfbuDQRrshhtbX)
 
 
